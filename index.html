@@ -1164,6 +1164,13 @@ window.addEventListener('click', () => {
     });
   }
 });
+    <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/hinario-Digital/sw.js')
+      .then(() => console.log("Service Worker Registrado!"))
+      .catch(err => console.log("Erro no SW:", err));
+  }
+</script>
 </script>
 
 </body>
