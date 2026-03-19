@@ -1,7 +1,12 @@
 {
-  "short_name": "Hinário",
   "name": "Hinário Digital - CBA",
-  "id": "/hinario-Digital/",
+  "short_name": "Hinário",
+  "description": "Hinário da Igreja Baptista do Papelão",
+  "start_url": "/hinario-Digital/",
+  "scope": "/hinario-Digital/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2ecc71",
   "icons": [
     {
       "src": "CBA.JPEG",
@@ -14,11 +19,5 @@
       "sizes": "512x512",
       "type": "image/jpeg"
     }
-  ],
-  "start_url": "/hinario-Digital/index.html",
-  "background_color": "#ffffff",
-  "display": "standalone",
-  "scope": "/hinario-Digital/",
-  "theme_color": "#2ecc71",
-  "description": "Hinário da Igreja Baptista do Papelão - Uíge"
+  ]
 }
