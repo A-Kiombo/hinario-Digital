@@ -986,34 +986,35 @@ window.fecharTutorial = function() {
         document.querySelector('header').style.display = 'flex';
     }   
 };
-async function verificarAtualizacoes() {
-    // Só verifica se houver internet
-    if (!navigator.onLine) return;
-
+async function verificarActualizacao() {
     try {
-        // 1. Procura a versão mais recente no servidor
-        const response = await fetch('versao.json?nocache=' + new Date().getTime());
-        const infoNova = await response.json();
+        const response = await fetch('versao.json');
+        const dados = await response.json();
+        
+        // Vai buscar a versão que o utilizador já tem guardada
+        let versaoLocal = localStorage.getItem('versao_app');
 
-        // 2. Vê qual é a versão que o telemóvel tem guardada
-        const versaoAtual = localStorage.getItem('versao_hinario') || 1.0;
-
-        // 3. Se a versão do servidor for maior, avisa o usuário
-        if (infoNova.numero > parseFloat(versaoAtual)) {
-            const confirmar = confirm(
-                `Nova Atualização Disponível (v${infoNova.numero})!\n\n` +
-                `${infoNova.notas}\n\n` +
-                `Deseja descarregar os novos hinos agora?`
-            );
-
-            if (confirmar) {
-                atualizarBaseDeDados(infoNova.numero);
-            }
+        // SE for a PRIMEIRA VEZ (versaoLocal é nula), apenas guarda a versão e não mostra alerta
+        if (!versaoLocal) {
+            localStorage.setItem('versao_app', dados.versao);
+            console.log("Primeira instalação: Versão " + dados.versao + " registada.");
+            return; 
         }
-    } catch (error) {
-        console.log("Não foi possível verificar atualizações (Offline ou Erro).");
+
+        // SE a versão no GitHub for MAIOR que a local, mostra o alerta
+        if (parseInt(dados.versao) > parseInt(versaoLocal)) {
+            alert("🔔 Nova Atualização!\n\n" + dados.notas);
+            // Atualiza a versão local para não avisar mais até haver outra nova
+            localStorage.setItem('versao_app', dados.versao);
+            location.reload(); // Recarrega para puxar os hinos novos
+        }
+    } catch (e) {
+        console.log("Sem internet para verificar atualizações.");
     }
 }
+
+// Chama a função ao carregar a página
+verificarActualizacao();
 
 async function atualizarBaseDeDados(novaVersao) {
     try {
