@@ -1139,6 +1139,31 @@ window.verificarRepeticao = function() {
         document.getElementById('play-icon').innerText = "▶";
     }
 };
+    let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Impede que o mini-infobar apareça em alguns telemóveis
+  e.preventDefault();
+  // Guarda o evento para ser disparado depois
+  deferredPrompt = e;
+  
+  // Opcional: Podes mostrar um botão teu ou um aviso dizendo 
+  // "Instale nossa App para usar Offline"
+  console.log('O Hinário está pronto para ser instalado!');
+});
+
+// Se quiseres que instale ao clicar em qualquer lugar na primeira vez
+window.addEventListener('click', () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('Usuário aceitou a instalação');
+      }
+      deferredPrompt = null;
+    });
+  }
+});
 </script>
 
 </body>
