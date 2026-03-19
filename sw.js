@@ -1,10 +1,9 @@
 const CACHE_NAME = 'hinario-v1';
 const assets = [
-  './',
-  './index.html',
-  './hinos.json',
-  './hinosportugues.json',
-  './CBA.JPEG'
+  '/hinario-Digital/',
+  '/hinario-Digital/index.html',
+  '/hinario-Digital/manifest.json',
+  '/hinario-Digital/CBA.JPEG'
 ];
 
 self.addEventListener('install', event => {
