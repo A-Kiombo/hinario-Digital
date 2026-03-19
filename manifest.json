@@ -2,22 +2,24 @@
   "name": "Hinário Digital - CBA",
   "short_name": "Hinário",
   "description": "Hinário da Igreja Baptista do Papelão",
-  "start_url": "/hinario-Digital/",
+  "start_url": "/hinario-Digital/index.html",
   "scope": "/hinario-Digital/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#2ecc71",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "CBA.JPEG",
       "sizes": "192x192",
       "type": "image/jpeg",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
       "src": "CBA.JPEG",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/jpeg",
+      "purpose": "any"
     }
   ]
 }
