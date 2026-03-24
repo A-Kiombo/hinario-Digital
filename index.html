@@ -8,10 +8,11 @@
 <meta name="theme-color" content="#2ecc71">
 <script>
   if ('serviceWorker' in navigator) {
-    // Usamos '/' para garantir que ele procure na raiz da Vercel
-    navigator.serviceWorker.register('/sw.js')
-      .then(() => console.log("App pronta para uso offline!"))
-      .catch(err => console.log("Erro no SW:", err));
+    // Usamos './sw.js' (com ponto) para que ele encontre o ficheiro 
+    // exatamente na mesma pasta onde está o teu index.html
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log("✅ App pronta para uso offline! Escopo:", reg.scope))
+      .catch(err => console.error("❌ Erro ao registar o Service Worker:", err));
   }
 </script>
     <style>
