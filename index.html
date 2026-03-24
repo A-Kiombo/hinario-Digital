@@ -986,32 +986,28 @@ window.fecharTutorial = function() {
         document.querySelector('header').style.display = 'flex';
     }   
 };
+// Esta é a função que o console diz que está em falta
 async function verificarAtualizacoes() {
-    // Só verifica se houver internet
-    if (!navigator.onLine) return;
-
     try {
-        // 1. Procura a versão mais recente no servidor
-        const response = await fetch('versao.json?nocache=' + new Date().getTime());
-        const infoNova = await response.json();
+        const response = await fetch('versao.json');
+        if (!response.ok) return; // Se o arquivo não existir, ignora silenciosamente
+        
+        const dados = await response.json();
+        let versaoLocal = localStorage.getItem('versao_app');
 
-        // 2. Vê qual é a versão que o telemóvel tem guardada
-        const versaoAtual = localStorage.getItem('versao_hinario') || 1.0;
+        if (!versaoLocal) {
+            localStorage.setItem('versao_app', dados.versao);
+            return;
+        }
 
-        // 3. Se a versão do servidor for maior, avisa o usuário
-        if (infoNova.numero > parseFloat(versaoAtual)) {
-            const confirmar = confirm(
-                `Nova Atualização Disponível (v${infoNova.numero})!\n\n` +
-                `${infoNova.notas}\n\n` +
-                `Deseja descarregar os novos hinos agora?`
-            );
-
-            if (confirmar) {
-                atualizarBaseDeDados(infoNova.numero);
+        if (parseInt(dados.versao) > parseInt(versaoLocal)) {
+            if(confirm("🔔 Nova atualização disponível!\n\n" + dados.notas + "\n\nDeseja atualizar agora?")) {
+                localStorage.setItem('versao_app', dados.versao);
+                location.reload(true);
             }
         }
-    } catch (error) {
-        console.log("Não foi possível verificar atualizações (Offline ou Erro).");
+    } catch (e) {
+        console.log("Verificação de versão ignorada (offline ou erro no json)");
     }
 }
 
