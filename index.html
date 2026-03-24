@@ -8,8 +8,10 @@
 <meta name="theme-color" content="#2ecc71">
 <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-      .then(() => console.log("App pronta para uso offline!"));
+    // Usamos '/' para garantir que ele procure na raiz da Vercel
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log("App pronta para uso offline!"))
+      .catch(err => console.log("Erro no SW:", err));
   }
 </script>
     <style>
