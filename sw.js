@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hinario-v1.1';
+const CACHE_NAME = 'hinario-v1.2';
 const assets = [
   './',
   './index.html',
